@@ -99,6 +99,11 @@ function _DistribucionOperadores_del(msg) {
     $("#idDistribucion").val(0);
 }
 function Guardar() {
+    Preguntar({ mensaje: "¿Está seguro de que desea Guardar?", funcion: Guardar2 });
+}
+
+function Guardar2() {
+    
     Distribucion = {};
     Distribucion.Nombre = $("#txtNombre").val();
     Distribucion.idRegla = $("#cboRegla").val();
@@ -111,6 +116,11 @@ function Guardar() {
     LlamarServicio(_DistribucionOperadores_sav, "DistribucionOperadores_sav", { Distribucionins: Distribucion });
 }
 function Forzar() {
+    Preguntar({ mensaje: "¿Está seguro que desea distribuir ahora?", funcion: Forzar2 });
+
+}
+function Forzar2() {
+    
     LlamarServicio(_DistribucionOperadores_Ejecutar, "DistribucionOperadores_Ejecutar", { idDistribucion: $("#idDistribucion").val() });
 }
 function _DistribucionOperadores_Ejecutar(msg)

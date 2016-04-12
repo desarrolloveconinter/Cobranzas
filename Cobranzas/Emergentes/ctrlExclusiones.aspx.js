@@ -58,20 +58,37 @@ function _Exclusiones_lst(msg) {
 
 }
 function Desincorporar_Personas() {
+    Preguntar({ mensaje: "¿Está seguro de que desea Desincorporar Persona?", funcion: Desincorporar_Personas2 });
+
+
+}
+function Desincorporar_Personas2() {
     var Exclusiones = ObtenerSeleccionados("pnlPersonas").select("idExclusion");
     LlamarServicio(_Exclusiones_del, "Exclusiones_del", { idOperador: Args.idOperador, Exclusiones: Exclusiones });
 
 }
 function Desincorporar_Cuentas() {
+    Preguntar({ mensaje: "¿Está seguro de que desea Desincorporar Cuentas?", funcion: Desincorporar_Cuentas2 });
+}
+function Desincorporar_Cuentas2() {
     var Exclusiones = ObtenerSeleccionados("pnlCuentas").select("idExclusion");
     LlamarServicio(_Exclusiones_del, "Exclusiones_del", { idOperador: Args.idOperador, Exclusiones: Exclusiones });
 }
+
 function Aprobar_Personas() {
+    Preguntar({ mensaje: "¿Está seguro de que desea Aprobar Exclusion?", funcion: Aprobar_Personas2 });
+
+
+}
+function Aprobar_Personas2() {
     var Exclusiones = ObtenerSeleccionados("pnlPersonas").select("idExclusion");
     LlamarServicio(_Exclusiones_Aprobado, "Exclusiones_Aprobado", { idOperador: Args.idOperador, Exclusiones: Exclusiones });
 
 }
 function Aprobar_Cuentas() {
+    Preguntar({ mensaje: "¿Está seguro de que desea Aprobar Exclusion?", funcion: Aprobar_Cuentas2 });
+}
+function Aprobar_Cuentas2() {
     var Exclusiones = ObtenerSeleccionados("pnlCuentas").select("idExclusion");
     LlamarServicio(_Exclusiones_Aprobado, "Exclusiones_Aprobado", { idOperador: Args.idOperador, Exclusiones: Exclusiones });
 }
@@ -84,9 +101,17 @@ function _Exclusiones_Aprobado(msg) {
     Actualizar();
 }
 function Incorporar_Persona() {
+    Preguntar({ mensaje: "¿Está seguro de que desea incorporar persona?", funcion: Incorporar_Persona2 });
+
+}
+function Incorporar_Persona2() {
+
     LlamarServicio(_Exclusiones_ins, "Exclusiones_ins_CodigoP", { idOperador: Args.idOperador, Codigo: $("#txtPersona").val() });
 }
 function Incorporar_Cuenta() {
+    Preguntar({ mensaje: "¿Está seguro de que desea incorporar cuenta?", funcion: Incorporar_Cuenta2 });
+}
+function Incorporar_Cuenta2() {
     LlamarServicio(_Exclusiones_ins, "Exclusiones_ins_CodigoC", { idOperador: Args.idOperador, Codigo: $("#txtCuenta").val() });
 }
 function _Exclusiones_ins(msg) {

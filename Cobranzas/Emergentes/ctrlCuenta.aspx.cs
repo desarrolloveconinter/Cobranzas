@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using Microsoft.Win32.SafeHandles;
 using System.Runtime.ConstrainedExecution;
 using System.Security;
+using Cobranzas.Codigo;
 
 namespace Cobranzas.Emergentes
 {
@@ -42,6 +43,9 @@ namespace Cobranzas.Emergentes
                             pnlDatos.InnerHtml = Tabla;
                         }
                         Seguridad.Ejecutar(ColocarSoportes);
+
+
+                        //ColocarSoportes();
                         foreach (Entidades.TiposReporte TR in db.TiposReporte.Where(x => x.Cuenta && x.idTipoCliente == Cuenta.Clientes.idTipoCliente && x.idPais==Cuenta.Personas.idPais))
                         {
                             pnlReportes.InnerHtml += @"<div class='btnReporte' onclick='location.href=""/Emergentes/ctrlReporte.aspx?idTipoReporte=" + TR.idTipoReporte + "&idCuenta=" + Cuenta.idCuenta + @"""'>" + TR.Nombre + "</div>";

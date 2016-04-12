@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Cobranzas.OT;
+using System.Data;
+
 
 namespace Cobranzas.Emergentes
 {
@@ -51,6 +53,14 @@ namespace Cobranzas.Emergentes
             Response.AddHeader("Content-disposition", "attachment;FileName=\"Avisos.csv\"");
             Response.AddHeader("content-type", "text/csv");
             Response.End();
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+
+            ServicioAvisos.AvisosServiceClient asc = new ServicioAvisos.AvisosServiceClient();
+            var lista = asc.Avisos_Creados_lst(Sesion.idOperador,  Convert.ToDateTime(dtpFechaDesde.Value), Convert.ToDateTime(dtpFechaHasta.Value));
+            DataTable dt = new DataTable();
         }
     }
 }

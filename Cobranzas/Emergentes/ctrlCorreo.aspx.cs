@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.IO;
+using Cobranzas.Codigo;
 
 namespace Cobranzas
 {
@@ -16,7 +17,8 @@ namespace Cobranzas
         {
             if (!IsPostBack)
             {
-                Seguridad.Ejecutar(PrepararCorreo);
+               Seguridad.Ejecutar(PrepararCorreo);
+               // PrepararCorreo();
             }
         }
         protected void PrepararCorreo()

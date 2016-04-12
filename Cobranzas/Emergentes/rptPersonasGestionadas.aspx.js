@@ -63,7 +63,7 @@ function _PersonasGestionadas_rpt(msg)
             { Titulo: "Client", Campo: "Cliente", Clase: "grdTexto", Ordenacion: true, Filtro: true },
             { Titulo: "Operator", Campo: "Operador", Clase: "grdTexto", Ordenacion: true, Filtro: true },
             { Titulo: "AssignmentDate", Campo: "FechaAsignacion", Clase: "grdFecha", Ordenacion: true, Filtro: true },
-            { Titulo: "Total", Campo: "Total", Clase: "grdDecimal", Ordenacion: true, Filtro: true },
+            { Titulo: "Total USD", Campo: "Total", Clase: "grdDecimal", Ordenacion: true, Filtro: true },
             { Titulo: "0-30", Campo: "M0a30", Clase: "grdDecimal", Ordenacion: true, Filtro: true },
             { Titulo: "30-45", Campo: "M30a45", Clase: "grdDecimal", Ordenacion: true, Filtro: true },
             { Titulo: "45-60", Campo: "M45a60", Clase: "grdDecimal", Ordenacion: true, Filtro: true },

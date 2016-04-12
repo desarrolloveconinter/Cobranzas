@@ -167,6 +167,11 @@ function EsValido()
 }
 function Guardar()
 {
+    Preguntar({ mensaje: "¿Está seguro de que desea guardar el Flujo?", funcion: Guardar2 });
+   
+}
+function Guardar2() {
+    
     if (!EsValido()) return;
     Restablecer();
 
@@ -174,10 +179,8 @@ function Guardar()
     Flujo.idTipoCliente = $("#cboTipoCliente").val();
     Flujo.idReglaSalida = $("#cboReglaSalida").val();
     var i = 0;
-    $(".cajas").each(function ()
-    {
-        if ($(this).css("display") != "none")
-        {
+    $(".cajas").each(function () {
+        if ($(this).css("display") != "none") {
             if (Flujo.Pasos[i] == undefined) Flujo.Pasos[i] = {};
             Flujo.Pasos[i].Posicion = $(this).css("left") + "," + $(this).css("top");
             Flujo.Pasos[i].idPaso = this.id.substr(4);
@@ -187,7 +190,7 @@ function Guardar()
     //Flujos_sav(Guardado, Flujo);RA
     LlamarServicio(Guardado, "Flujos_sav", { Flujoins: Flujo });
 }
-function Guardado(msg)
+function Guardado2(msg)
 {
     Mensaje({ mensaje: "Flujo Guardado Satisfactoriamente" });
     $("#idFlujo").val(msg.d);

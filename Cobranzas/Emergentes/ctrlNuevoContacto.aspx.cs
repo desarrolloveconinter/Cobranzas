@@ -11,7 +11,7 @@ namespace Cobranzas.Emergentes
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            btnGuardar.Attributes.Add("onclick", "javascript:return confirm('Esta seguro que desea Guardar el contacto?')");
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)

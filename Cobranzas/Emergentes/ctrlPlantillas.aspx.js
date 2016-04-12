@@ -88,9 +88,15 @@ function _Plantilla_sel(msg) {
     $("#pstDetalles").click();
 }
 function Eliminar() {
+    Preguntar({ mensaje: "¿Está seguro de que desea eliminar?", funcion: Eliminar2 });
+
+}
+function Eliminar2() {
+
     var idPlantilla = $("#idPlantilla").val();
     LlamarServicio(_Plantilla_del, "Plantilla_del", { idPlantilla: idPlantilla });
 }
+
 
 function _Plantilla_del(msg) {
     Mensaje({ mensaje: "La plantilla ha sido eliminado satisfactoriamente" });
@@ -115,6 +121,11 @@ function Nuevo() {
 }
 
 function Guardar() {
+    Preguntar({ mensaje: "¿Está seguro de que desea Guardar?", funcion: Guardar2 });
+
+}
+function Guardar2() {
+   
     if ($("#cboPais").val() == "") {
         Mensaje({ mensaje: "Debe selecionar un pais." });
         return false;

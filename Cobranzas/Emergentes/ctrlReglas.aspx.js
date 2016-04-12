@@ -238,6 +238,10 @@ function SeleccionarRegla(idRegla) {
     LlamarServicio(_Reglas_sel, "Reglas_sel", { idRegla: idRegla });
 }
 function GuardarReglas() {
+    Preguntar({ mensaje: "¿Está seguro de Guardar la Regla?", funcion: GuardarReglas2 });
+}
+function GuardarReglas2() {
+    
     var Regla = { idRegla: $("#idRegla").val(), Nombre: $("#txtNombreRegla").val(), Criterios: "", TipoRegla: $("#cboTipo").val(), ReglasDet: Campos };
     LlamarServicio(Reglas_sav_Respuesta, "Reglas_sav", { Reglains: Regla });
 }

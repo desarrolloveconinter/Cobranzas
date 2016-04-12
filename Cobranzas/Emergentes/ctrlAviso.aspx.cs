@@ -5,12 +5,16 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
+
+
 namespace Cobranzas
 {
     public partial class ctrlAviso : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             btnAceptar.Visible = false;
             using (CobranzasDataContext db = new CobranzasDataContext())
             {
@@ -40,22 +44,44 @@ namespace Cobranzas
                 }
 
                 if (Aviso.Prioritario) {
-
+                    btnCuenta.Visible = false;
+                    btnPosponer.Visible = false;
+                    btnIgnorar.Visible = false; 
                     btnAsignarPrimero.Visible = false;
                     btnAsignarUltimo.Visible = false;
                     btnCancelar.Visible = false;
                     btnAceptar.Visible = true;
+                }
+                else
+                {
+                    btnCuenta.Visible = true;
+                    btnPosponer.Visible = true;
+                    btnIgnorar.Visible = true;
+                    btnAsignarPrimero.Visible = false;
+                    btnAsignarUltimo.Visible = false;
+                    btnCancelar.Visible = true;
+                    btnCancelar.Attributes.Add("onclick", "javascript:return confirm('Desea eliminar el Aviso?')");
+                    btnAceptar.Visible = false;
+
                 }
                 lblHora.Text = Aviso.FechaAviso.AFechaHora();
                 lblCreacion.Text = Aviso.FechaCrea.AFechaHora();
                 lblOriginal.Text = Aviso.FechaOriginal.AFechaHora();
                 lblUsuario.Text = Aviso.Operadores1.Nombre;
                 //var b=(new wsCobranzas()).Avisos_lst(0);
+
+
+               
             }
         }
 
+      
+
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
+
+          
+
             if (txtComentario.Text.Trim() == "")
             {
                 UI.Mensaje("Avisos", "Debe especificar un comentario para cancelar el Aviso.", "", Page);
@@ -78,6 +104,8 @@ namespace Cobranzas
                 }
             }
         }
+
+
 
         protected void btnPosponer_Click(object sender, EventArgs e)
         {
@@ -110,7 +138,7 @@ namespace Cobranzas
                 int idAviso = Convert.ToInt32(Request["idAviso"]);
                 //Entidades.Avisos Aviso = db.Avisos.Single(x => x.idAviso == idAviso);
                 //Aviso.FechaCancelado = DateTime.Now;
-                Int32 Lugar = (db.Colas.Where(x => x.idOperador == Sesion.Operador.idOperador /*&& x.idPersona == Convert.ToInt32(idPersona.Value)*/).Min(x => (int?)x.Lugar) ?? 1) - 1;
+                Int32 Lugar = ((db.Colas.Where(x => x.idOperador == Sesion.Operador.idOperador /*&& x.idPersona == Convert.ToInt32(idPersona.Value)*/).Max(x => (int?)x.Lugar) ?? 1) + 1);
                 Entidades.Colas Cola = db.Colas.SingleOrDefault(x => x.idOperador == Sesion.Operador.idOperador && x.idPersona == Convert.ToInt32(idPersona.Value));
                 if (Cola == null)
                 {
@@ -120,10 +148,21 @@ namespace Cobranzas
                 else
                 {
                     Cola.Lugar = Lugar;
-                }
-                db.SubmitChanges();
 
+                }
+
+
+                try
+                {
+                db.SubmitChanges();
                 ScriptManager.RegisterStartupScript(Page, typeof(Page), "ini", "window.parent.CerrarAviso();window.parent.Avisos_Actualizar();", true);
+                }
+
+                catch (Exception Ex)
+                {
+                    UI.Mensaje("Avisos", "Ya tiene una Prioridad activa con el mismo consignatario.", "", Page);
+                    
+                }
             }
         }
 

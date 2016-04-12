@@ -123,8 +123,12 @@ function Nuevo()
 }
 function Guardar()
 {
-    if ($("#txtFechaIngreso").val()=="")
-    {
+    Preguntar({ mensaje: "¿Está seguro de que desea Guardar?", funcion: Guardar2 });
+
+}
+function Guardar2() {
+
+    if ($("#txtFechaIngreso").val() == "") {
         Mensaje({ mensaje: "Debe asignar una fecha de ingreso." });
         return false;
     }

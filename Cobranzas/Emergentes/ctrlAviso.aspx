@@ -51,22 +51,24 @@
                 Persona:
             </th>
             <td colspan="3">
-                <asp:Button runat="server" ID="btnCuenta" CssClass="Telefono" OnClick="btnCuenta_Click" />
+                <asp:Button  ID="btnCuenta" CssClass="Telefono" OnClick="btnCuenta_Click" runat="server" />
             </td>
         </tr>
         <tr><th>Comentario de Cierre:</th><td colspan="3"> <asp:TextBox runat="server" ID="txtComentario" Width="90%" Rows="2" MaxLength ="500" TextMode="MultiLine"></asp:TextBox></td></tr>
         <tr>
             <td colspan="4" style="text-align: center;">
 
-                <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" />
+                <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAsignarPrimero_Click" />
                 
-                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" OnClick="btnCancelar_Click" />
-                <asp:Button ID="btnPosponer" runat="server" Text="Posponer" OnClick="btnPosponer_Click" />
-                <asp:Button ID="btnIgnorar" runat="server" Text="Ignorar" OnClick="btnIgnorar_Click" />
+                
             </td>
         </tr>
         <tr>
             <td colspan="4" style="text-align: center;">
+                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" OnClick="btnCancelar_Click" />
+
+                <asp:Button ID="btnPosponer" runat="server" Text="Posponer" OnClick="btnPosponer_Click" />
+                <asp:Button ID="btnIgnorar" runat="server" Text="Ignorar" OnClick="btnIgnorar_Click" />
                 <asp:Button ID="btnAsignarPrimero" runat="server" Text="Asignar de Primero" OnClick="btnAsignarPrimero_Click" />
                 <asp:Button ID="btnAsignarUltimo" runat="server" Text="Asignar de Último" OnClick="btnAsignarUltimo_Click" />
             </td>

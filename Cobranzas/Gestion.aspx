@@ -3,7 +3,7 @@
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 <asp:Content ID="headContent" ContentPlaceHolderID="head" runat="Server">
     <script src="/Scripts/Editor.js" type="text/javascript"></script>
-    <script src="Gestion.aspx.js?ver=11" type="text/javascript"></script>
+    <script src="Gestion.aspx.js?ver=16" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(Inicializar);
     </script>
@@ -26,7 +26,10 @@
                 <tr>
                     <td style="text-align: right;">
                         <span id="Contador" class="Temporizador"></span>
-                        <input type="button" onclick="PlayGestion()" class="btnPlay" id="btnPlay" title="Iniciar Gestión Automática" /><input type="button" onclick="    PauseGestion()" class="btnPause" id="btnPause" style="display: none;" title="Pausar Gestión Automática" /><input type="button" onclick="    StopGestion();" class="btnStop" id="btnStop" style="display: none;" title="Detener Gestión Automática" />
+                        <input type="button" onclick="    PauseGestion()" class="btnPause" id="btnPause" style="display: none;" title="Pausar Gestión Automática" /><input type="button" onclick="    StopGestion();" class="btnStop" id="btnStop" style="display: none;" title="Detener Gestión Automática" />
+                        <div class="btnReporte" onclick="Emergente({url:'/Emergentes/DocumentosInteres.aspx'});">
+                            <asp:Literal ID="Literal89" runat="server" Text="Documentos" />
+                        </div>
                     </td>
                     <td>
                         <div id="pnlErrores" style="display: none;">
@@ -42,7 +45,7 @@
                         <div id="minipnlSupervision" style="display: none;">
                             <asp:Literal ID="litSupervisando" runat="server" Text="<%$ Resources:Recursos, Supervising %>"></asp:Literal>: <span id="lblSupervisando"></span>
                         </div>
-                    </td>
+                        <input type="button" onclick="PlayGestion()" class="btnPlay" id="btnPlay" title="Iniciar Gestión Automática" /></td>
                     <td>
                         <asp:Literal ID="litUser" runat="server" Text="<%$ Resources:Recursos, User %>"></asp:Literal>:
                         <asp:Label ID="lblUser" runat="server" Text=""></asp:Label><br />
@@ -55,6 +58,11 @@
                             <asp:ListItem Text="<%$ Resources:Recursos, English %>" Value="en-US"></asp:ListItem>
                             <asp:ListItem Text="<%$ Resources:Recursos, Portuguese %>" Value="pt-BR"></asp:ListItem>
                         </asp:DropDownList>
+
+
+
+
+
                     </td>
                 </tr>
             </table>
@@ -107,17 +115,26 @@
                 </li>
                 <li runat="server" id="liSupervision"><a href="#tabSupervision" id="pstSupervision">
                     <asp:Literal ID="Literal53" runat="server" Text="<%$ Resources:Recursos, Supervision %>"></asp:Literal></a></li>
+
                 <li runat="server" id="liDistribucion"><a href="#tabDistribucion" id="pstDistribucion">
                     <asp:Literal ID="Literal54" runat="server" Text="<%$ Resources:Recursos, Distribution %>"></asp:Literal></a></li>
+
                 <li><a href="#tabIndicadores" id="pstIndicadores">
                     <asp:Literal runat="server" Text="<%$ Resources:Recursos, DashBoard %>"></asp:Literal></a></li>
+
                 <li><a href="#tabBandejaEntrada" id="pstBandejaEntrada">
                     <asp:Literal runat="server" Text="<%$ Resources:Recursos, InBox %>"></asp:Literal></a></li>
+
                 <li><a href="#tabCartera" id="pstCartera">
                     <asp:Literal runat="server" Text="<%$ Resources:Recursos, Portfolio %>"></asp:Literal></a></li>
+
                 <li><a href="#tabGestion" id="pstGestion">
                     <asp:Literal runat="server" Text="<%$ Resources:Recursos, Management %>"></asp:Literal></a></li>
+
+
             </ul>
+
+
             <div id="tabSistema" class="PanelGestion" runat="server">
                 <!-- [-----------------------------------------------------------------------------------------------------------------------------------------Sistema]-->
                 <h2>Herramientas para diagnóstico del sistema</h2>
@@ -345,15 +362,16 @@
                                 <div class="btnReporte" onclick="Emergente({url:'/Emergentes/rptLlamadas.aspx?Supervisados=1&idOperador='+idOpA()});">
                                     <asp:Literal ID="Literal74" runat="server" Text="<%$ Resources:Recursos, Calls %>" />
                                 </div>
-                                
+
                                 <div class="btnReporte" onclick="Emergente({url:'/Emergentes/rptCompromisos.aspx?Supervisados=1&idOperador='+idOpA(), modal:false});">
                                     <asp:Literal ID="Literal93" runat="server" Text="<%$ Resources:Recursos, Commitments %>" />
                                 </div>
-                                                            <div class="btnReporte" onclick="Emergente({url:'/Emergentes/rptRankingEjecutivo.aspx?idOperador='+idOpA()});">
+                                <div class="btnReporte" onclick="Emergente({url:'/Emergentes/rptRankingEjecutivo.aspx?idOperador='+idOpA()});">
                                     <asp:Literal ID="Literal95" runat="server" Text="Ranking por Ejecutivo" />
-                            </div>
-
-                                
+                                </div>
+                                <div class="btnReporte" onclick="Emergente({url:'/Emergentes/rptCMC.aspx?idOperador='+idOpA()});">
+                                    <asp:Literal ID="Literal94" runat="server" Text="CMC" />
+                                </div>
                             </div>
                             <h2>
                                 <asp:Literal ID="Literal59" runat="server" Text="<%$ Resources:Recursos, GeneralReports %>"></asp:Literal></h2>
@@ -575,8 +593,9 @@
                                 <asp:Literal ID="Literal85" runat="server" Text="<%$ Resources:Recursos, Goals %>"></asp:Literal></h2>
                             <div id="pnlMetas">
                             </div>
-                            <h2><asp:Literal ID="Literal62" runat="server" Text="<%$ Resources:Recursos, Reports %>"></asp:Literal></h2>
-                             <div class="btnReporte" onclick="Emergente({url:'/Emergentes/rptGestiones.aspx?Supervisados=0&idOperador='+idOp()});">
+                            <h2>
+                                <asp:Literal ID="Literal62" runat="server" Text="<%$ Resources:Recursos, Reports %>"></asp:Literal></h2>
+                            <div class="btnReporte" onclick="Emergente({url:'/Emergentes/rptGestiones.aspx?Supervisados=0&idOperador='+idOp()});">
                                 <asp:Literal ID="Literal33" runat="server" Text="<%$ Resources:Recursos, Managements %>" />
                             </div>
                             <div class="btnReporte" onclick="Emergente({url:'/Emergentes/rptAvisos.aspx?Supervisados=0&idOperador='+idOp()});">
@@ -663,13 +682,13 @@
                             <input type="checkbox" id="chkIncluyeAutomatico" runat="server" onclick="ActualizarCartera();" />
                             Incluir Gestiones Automáticas
                             <br />
-                            <input type="button" value="Otras Personas" onclick="Emergente({ url: 'Emergentes/extPersonas.aspx' })" /><input id="Button3" type="button" runat="server" value="<%$ Resources:Recursos, Download %>" onclick="    Cartera_Descargar();" />
+                            <input id="ButtonOtrasPersonas" runat="server" type="button" value="Otras Personas" onclick="Emergente({ url: 'Emergentes/extPersonas.aspx' })" /><input id="Button3" type="button" runat="server" value="<%$ Resources:Recursos, Download %>" onclick="    Cartera_Descargar();" />
                             <input type="button" runat="server" value="<%$ Resources:Recursos, Update %>" onclick="ActualizarCartera();" />
-<!--<br />                            
+                            <!--<br />                            
                             <input type="button" runat="server" value="Asignar de Primero" onclick="InsertarColas(1);" /> -->
-                            
-                            
-                         
+
+
+
                         </td>
                     </tr>
                 </table>
@@ -678,7 +697,7 @@
                 </div>
             </div>
             <div id="tabGestion" class="PanelGestion">
-            
+
                 <!-- [-----------------------------------------------------------------------------------------------------------------------------------------Gestión]-->
                 <asp:HiddenField ID="idPersona" runat="server" Value="" />
                 <input type="hidden" id="idAvisoPersona" />
@@ -837,6 +856,9 @@
                     <div id="datosDeuda" class="Seccion">
                         <div id="pnlPeCuentas">
                         </div>
+
+                        <%--<input type="button" id="FacturaExclusion" value="Excluir Factura" onclick="EjecutarFacturaUpd();" runat="server" />--%>
+
                     </div>
                     <div id="_datosGestion" class="EncSeccion">
                         <asp:Literal ID="Literal18" runat="server" Text="<%$ Resources:Recursos, CurrentManagement %>" />
@@ -892,10 +914,10 @@
                                                     </tr>
                                                 </table>
                                                 <input id="Button1" type="button" runat="server" value="<%$ Resources:Recursos, SaveManagement %>" onclick="ConfirmarGestion()" />
-                                                
-                                                
-                                                
-                                                
+
+
+
+
                                                 <input id="Button9" type="button" runat="server" value="Guardar Gestión a Grupo de Empresas" onclick="ConfirmarGestionGrupoEmpresa();" />
 
 
@@ -952,16 +974,21 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><table><tr>
-                                                            <td><input type="button" value="Crear" onclick="CrearAviso();" /></td>
-                                                            <td>&nbsp;</td>
-                                                            <td>Asignar Prioritario</td>
-                                                            <td><input type="checkbox" id="chkAvisoPrioritario" /></td>
+                                                        <td>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="button" value="Crear" onclick="CrearAviso();" /></td>
+
+                                                                    <td>
+                                                                        <label id="lblAvPri" runat="server"></label>
+                                                                        <input type="checkbox" id="chkAvisoPrioritario" runat="server" /></td>
 
 
-                                                                   </tr></table>
-                                                            
-                                                        </td>   
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
                                                     </tr>
                                                 </table>
                                             </td>
@@ -1030,5 +1057,25 @@
             <br />
         </div>
     </div>
-    <footer>Copyright (c) 2014 Veconinter C.A. <asp:Label runat="server" id="lblAmbiente" style="background-color:Yellow" Visible="false"></asp:Label><span id="NoRecibeCorreos" style="background-color: Red; color: Yellow; display: none; cursor: pointer;" title="Por favor actualizar Contraseña de Correo" onclick="ActualizarContrasena(true);"> - No recibe Correos</span> </footer>
+
+    <footer>Copyright (c) 2014 Veconinter C.A.
+        <asp:Label runat="server" ID="lblAmbiente" Style="background-color: Yellow" Visible="false"></asp:Label><span id="NoRecibeCorreos" style="background-color: Red; color: Yellow; display: none; cursor: pointer;" title="Por favor actualizar Contraseña de Correo" onclick="ActualizarContrasena(true);"> - No recibe Correos</span> </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </asp:Content>
+
+

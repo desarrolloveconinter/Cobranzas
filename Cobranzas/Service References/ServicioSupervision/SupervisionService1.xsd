@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://veccsvs008:9010/Servicios/SupervisionService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Cobranzas.OT" />
+  <xs:element name="OperadoresSupervisadosConSupervisor_lst">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idOperador" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OperadoresSupervisadosConSupervisor_lstResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Cobranzas.OT" minOccurs="0" name="OperadoresSupervisadosConSupervisor_lstResult" nillable="true" type="q1:ArrayOfotOperadoresSimple" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OperadoresSupervisados_lst">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idOperador" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OperadoresSupervisados_lstResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Cobranzas.OT" minOccurs="0" name="OperadoresSupervisados_lstResult" nillable="true" type="q2:ArrayOfotOperadoresSimple" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OperadoresSupervisadosCompleto_lst">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idOperador" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OperadoresSupervisadosCompleto_lstResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Cobranzas.OT" minOccurs="0" name="OperadoresSupervisadosCompleto_lstResult" nillable="true" type="q3:ArrayOfotOperadores" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

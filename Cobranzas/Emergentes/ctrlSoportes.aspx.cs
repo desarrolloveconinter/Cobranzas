@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cobranzas.Codigo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,7 @@ namespace Cobranzas.Emergentes
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //BajarArchivo();
             Seguridad.Ejecutar(BajarArchivo);
         }
         public void BajarArchivo()
@@ -47,11 +49,11 @@ namespace Cobranzas.Emergentes
                         return;
                     }
 
-                    try
-                    {
+                    //try
+                    //{
                         Negocios.BajarArchivo(Archivo, Response);
-                    }
-                    catch { }
+                    //}
+                    //catch { }
                     //if (Archivo.IndexOf("\\") == -1)// URL
                     //{
                     //    NombreArchivo = Archivo.Substring(Archivo.LastIndexOf("//") + 1);

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -29,6 +30,7 @@
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>true</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
+    <TypeScriptToolsVersion>1.7</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,7 +57,7 @@
     </Reference>
     <Reference Include="Entidades, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Entidades\bin\Release\Entidades.dll</HintPath>
+      <HintPath>..\..\..\veconinter\Entidades\bin\Release\Entidades.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="OpenPOP, Version=2.0.4.369, Culture=neutral, PublicKeyToken=bebb5741791313cd, processorArchitecture=MSIL">
@@ -107,6 +109,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Codigo\Negocios.cs" />
+    <Compile Include="Codigo\Seguridad.cs" />
     <Compile Include="Codigo\UI.cs" />
     <Compile Include="Descargas\Descargas.aspx.cs">
       <DependentUpon>Descargas.aspx</DependentUpon>
@@ -121,6 +124,13 @@
     </Compile>
     <Compile Include="Emergentes\ctrlAgenda.aspx.designer.cs">
       <DependentUpon>ctrlAgenda.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Emergentes\ctrlDetallesPago.aspx.cs">
+      <DependentUpon>ctrlDetallesPago.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Emergentes\ctrlDetallesPago.aspx.designer.cs">
+      <DependentUpon>ctrlDetallesPago.aspx</DependentUpon>
     </Compile>
     <Compile Include="Emergentes\ctrlEliminarTelefono.aspx.cs">
       <DependentUpon>ctrlEliminarTelefono.aspx</DependentUpon>
@@ -178,12 +188,26 @@
     <Compile Include="Emergentes\ctrlSuplente.aspx.designer.cs">
       <DependentUpon>ctrlSuplente.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Emergentes\DocumentosInteres.aspx.cs">
+      <DependentUpon>DocumentosInteres.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Emergentes\DocumentosInteres.aspx.designer.cs">
+      <DependentUpon>DocumentosInteres.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Emergentes\rptClienteCuentas.aspx.cs">
       <DependentUpon>rptClienteCuentas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Emergentes\rptClienteCuentas.aspx.designer.cs">
       <DependentUpon>rptClienteCuentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Emergentes\rptCMC.aspx.cs">
+      <DependentUpon>rptCMC.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Emergentes\rptCMC.aspx.designer.cs">
+      <DependentUpon>rptCMC.aspx</DependentUpon>
     </Compile>
     <Compile Include="Emergentes\rptGestionesCuentas.aspx.cs">
       <DependentUpon>rptGestionesCuentas.aspx</DependentUpon>
@@ -338,6 +362,7 @@
     <Content Include="Emergentes\ctrlAgenda.aspx.js">
       <DependentUpon>ctrlAgenda.aspx</DependentUpon>
     </Content>
+    <Content Include="Emergentes\ctrlDetallesPago.aspx" />
     <Content Include="Emergentes\ctrlEliminarTelefono.aspx" />
     <Content Include="Emergentes\ctrlEliminarTelefono.aspx.js">
       <DependentUpon>ctrlEliminarTelefono.aspx</DependentUpon>
@@ -350,6 +375,10 @@
     <Content Include="Emergentes\ctrlAdministrarTelefono.aspx.js">
       <DependentUpon>ctrlAdministrarTelefono.aspx</DependentUpon>
     </Content>
+    <Content Include="Emergentes\ctrlNuevoTelefono.aspx.js" />
+    <Content Include="Emergentes\DocumentosInteres.aspx" />
+    <Content Include="Emergentes\DocumentosInteres.aspx.js" />
+    <Content Include="Emergentes\rptCMC.aspx" />
     <Content Include="Emergentes\rptGestiones.aspx.js">
       <DependentUpon>rptGestiones.aspx</DependentUpon>
     </Content>
@@ -859,6 +888,23 @@
     <Content Include="Scripts\ordenacion.js" />
     <Content Include="Scripts\Servicios.js" />
     <Content Include="Scripts\validaciones.js" />
+    <Content Include="Properties\DataSources\Cobranzas.OT.otAviso.datasource" />
+    <Content Include="Properties\DataSources\Cobranzas.OT.otOperadores.datasource" />
+    <Content Include="Properties\DataSources\Cobranzas.OT.otOperadoresSimple.datasource" />
+    <None Include="Service References\ServicioAvisos\AvisosService.disco" />
+    <None Include="Service References\ServicioAvisos\configuration91.svcinfo" />
+    <None Include="Service References\ServicioAvisos\configuration.svcinfo" />
+    <None Include="Service References\ServicioAvisos\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServicioSupervision\SupervisionService.disco" />
+    <None Include="Service References\ServicioSupervision\configuration91.svcinfo" />
+    <None Include="Service References\ServicioSupervision\configuration.svcinfo" />
+    <None Include="Service References\ServicioSupervision\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Servicios\wsCobranzas.svc" />
     <Content Include="Estilos\Site.css" />
     <Content Include="Site.master" />
@@ -882,6 +928,16 @@
     </Compile>
     <Compile Include="Recursos.aspx.designer.cs">
       <DependentUpon>Recursos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServicioAvisos\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServicioSupervision\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Servicios\wsCobranzas.svc.cs">
       <DependentUpon>wsCobranzas.svc</DependentUpon>
@@ -1162,6 +1218,22 @@
     <Compile Include="Properties\AssemblyInfo.cs">
     </Compile>
     <Content Include="Emergentes\ctrlNuevoPago.aspx" />
+    <None Include="Service References\ServicioAvisos\AvisosService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicioAvisos\AvisosService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicioSupervision\SupervisionService.wsdl" />
+    <None Include="Service References\ServicioSupervision\SupervisionService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicioSupervision\SupervisionService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicioSupervision\SupervisionService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1170,10 +1242,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <Content Include="ClassDiagram2.cd" />
     <None Include="Datos.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1186,6 +1260,13 @@
     <None Include="Properties\PublishProfiles\Nueva Calidad.pubxml" />
     <None Include="Properties\PublishProfiles\Nueva Producción.pubxml" />
     <None Include="Properties\PublishProfiles\Produccion.pubxml" />
+    <None Include="Service References\ServicioAvisos\AvisosService.wsdl" />
+    <None Include="Service References\ServicioAvisos\AvisosService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicioAvisos\AvisosService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Recursos.en.resx">
@@ -1211,11 +1292,16 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServicioAvisos\" />
+    <WCFMetadataStorage Include="Service References\ServicioSupervision\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>

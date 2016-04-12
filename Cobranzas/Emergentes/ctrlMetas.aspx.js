@@ -73,6 +73,11 @@ function Nuevo() {
     $("#chkAplicaExclusiones")[0].checked = true;
 }
 function Guardar() {
+    Preguntar({ mensaje: "¿Está seguro de que desea Guardar?", funcion: Guardar2 });
+    
+}
+function Guardar2() {
+
     var Meta = {};
     Meta.idMeta = $("#idMeta").val();
     Meta.Nombre = $("#txtNombre").val();

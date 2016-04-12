@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Cobranzas.OT" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Cobranzas.OT" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfotOperadoresSimple">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="otOperadoresSimple" nillable="true" type="tns:otOperadoresSimple" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfotOperadoresSimple" nillable="true" type="tns:ArrayOfotOperadoresSimple" />
+  <xs:complexType name="otOperadoresSimple">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Jerarquia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="idOperador" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="otOperadoresSimple" nillable="true" type="tns:otOperadoresSimple" />
+  <xs:complexType name="ArrayOfotOperadores">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="otOperadores" nillable="true" type="tns:otOperadores" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfotOperadores" nillable="true" type="tns:ArrayOfotOperadores" />
+  <xs:complexType name="otOperadores">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Cargo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Extension" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaEgreso" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaFin" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaIngreso" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FirmaCorreo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Grupo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Supervisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Telefonos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="idGrupo" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="idOperador" type="xs:int" />
+      <xs:element minOccurs="0" name="idSupervisor" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="otOperadores" nillable="true" type="tns:otOperadores" />
+</xs:schema>

@@ -11,7 +11,7 @@ namespace Cobranzas.Emergentes
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            btnAgregar.Attributes.Add("onclick", "javascript:return confirm('Esta seguro que desea Agregar el numero telefonico?')");
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)

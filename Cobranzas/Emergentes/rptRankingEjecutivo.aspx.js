@@ -16,6 +16,7 @@ function Inicializar()
 }
 function Ejecutar()
 {
+    
 
     var idCliente = Convert.ToInt32($("#cboCliente").val());
     if (idCliente == 0) idCliente = null;
@@ -27,6 +28,7 @@ function Ejecutar()
         FechaHasta: Convert.ToDateTime($("#dtpFechaHasta").val()).ToString("JSON")
     });
 }
+
 function _CorreosAdministrador_rpt(msg)
 {
     Tabla({
@@ -42,4 +44,29 @@ function _CorreosAdministrador_rpt(msg)
             { Titulo: "Reason", Campo: "MotivoRechazo", Clase: "grdTexto", Ordenacion: true, Filtro: true }
         ]
     });
+
+    function EjecutarRank() {
+       
+
+        
+        
+
+            
+            LlamarServicio(_Rank, "Rank",
+                {
+                    FechaDesde: "2015/01/06",
+                    FechaHasta: "2015/12/06"
+
+                });
+      
+    }
+
+    function _EjecutarRank(msg) {
+
+
+        pnTablasOperadores.Controls.Add(tablaOperadores);
+        pnTablasOperadores.Controls.Add(imgChart);
+    }
+
 }
+

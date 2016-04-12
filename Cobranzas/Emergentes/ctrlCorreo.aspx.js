@@ -37,11 +37,16 @@ function _Personas_Tocadas_lst(msg)
 }
 function AsignarCorreosAPersona(CrearRegla)
 {
-    var idPersona = $("#cboaPersona").val();
-    if (idPersona == "") { Mensaje({ mensaje: Recursos["MustSelectAPerson"] }); return; }
-    var CorreosSel = [$("#idCorreo").val()];
-    //Correos_Persona_ins(_Correos_Persona_ins, CorreosSel, idPersona, CrearRegla);RA
-    LlamarServicio(_Correos_Persona_ins, "Correos_Persona_ins", { Correos: CorreosSel, idPersona: idPersona, CrearRegla: CrearRegla });
+    var Respuesta = confirm("¿Esta seguro que desea asignar el correo?")
+
+    if (Respuesta == true) {
+        var idPersona = $("#cboaPersona").val();
+        if (idPersona == "") { Mensaje({ mensaje: Recursos["MustSelectAPerson"] }); return; }
+        var CorreosSel = [$("#idCorreo").val()];
+        //Correos_Persona_ins(_Correos_Persona_ins, CorreosSel, idPersona, CrearRegla);RA
+        LlamarServicio(_Correos_Persona_ins, "Correos_Persona_ins", { Correos: CorreosSel, idPersona: idPersona, CrearRegla: CrearRegla });
+    }
+    
 }
 function _Correos_Persona_ins(msg)
 {
@@ -63,8 +68,14 @@ function Respuesta(Tipo)
 {
     location.href = "ctrlEnvioCorreo.aspx?idCorreo=" + $("#idCorreo").val() + "&Accion=" + Tipo + "&idOperador=" + $("#idOperador").val();
 }
+
 function MarcarComoPersonal()
 {
+    Preguntar({ mensaje: "¿Está seguro de que desea marcar correo como personal?", funcion: MarcarComoPersonal2 });
+ 
+}
+function MarcarComoPersonal2() {
+   
     LlamarServicio(_Correos_MarcarPersonal_upd, "Correos_MarcarPersonal_upd", { Correos: [$("#idCorreo").val()], TipoEspecial: 2 });
 }
 function _Correos_MarcarPersonal_upd(msg)
@@ -84,35 +95,24 @@ function FiltrarPersona()
 }
 function AsignarCorreosGrupodeEmpresa(CrearRegla) {
 
+    var Respuesta = confirm("¿Esta seguro que desea asginar el correo a un Grupo de Empresa?")
 
-    
+    if (Respuesta == true)
+    {
+        var idPersona = $("#cboaPersona").val();
+        LlamarServicio(_CorreoGrupoEmpresa_lst, "CorreoGrupoEmpresa_lst", { idPersona: idPersona });
+        function _CorreoGrupoEmpresa_lst(msg)
+        {
+            for (var i = 0; i < msg.d.length; i++)
+            {
+                var persona = msg.d[i].idPersonaContacto
+                var CorreosSel = [$("#idCorreo").val()];
+                //Correos_Persona_ins(_Correos_Persona_ins, CorreosSel, idPersona, CrearRegla);RA
+                LlamarServicio(_Correos_Persona_ins, "Correos_Persona_ins", { Correos: CorreosSel, idPersona: persona, CrearRegla: CrearRegla });
 
+            }
 
-    var idPersona = $("#cboaPersona").val();
-
-    LlamarServicio(_CorreoGrupoEmpresa_lst, "CorreoGrupoEmpresa_lst", { idPersona: idPersona });
-
-    
-
-
-
-    function _CorreoGrupoEmpresa_lst(msg) {
-
-
-        for (var i=0; i<msg.d.length; i++){
-        
-    var persona = msg.d[i].idPersonaContacto
-    var CorreosSel = [$("#idCorreo").val()];
-    //Correos_Persona_ins(_Correos_Persona_ins, CorreosSel, idPersona, CrearRegla);RA
-    LlamarServicio(_Correos_Persona_ins, "Correos_Persona_ins", { Correos: CorreosSel, idPersona: persona, CrearRegla: CrearRegla });
-
-
-        
         }
-
     }
-
-
-
 }
 

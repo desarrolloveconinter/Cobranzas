@@ -26,23 +26,25 @@ function Valor()
 }
 function Guardar()
 {
+    Preguntar({ mensaje: "¿Está seguro de que desea guardar el compromiso de pago?", funcion: Guardar2 });
+
+}
+
+function Guardar2() {
     var Resultados = ObtenerTodos("pnlPrincipal");
     var Compromiso = {};
     Compromiso.Descripcion = $("#txtDescripcion").val();
     Compromiso.idOperador = window.parent.idOperadorLog;
     Compromiso.Compromisos_Cuentas = [];
-    for (var i = 0; i < Resultados.length; i++)
-    {
+    for (var i = 0; i < Resultados.length; i++) {
         var j = 0;
-        while (true)
-        {
+        while (true) {
             if (Resultados[i]["Fecha" + j] == undefined) break;
             var CC = {};
             CC.Fecha = Convert.ToDateTime(Resultados[i]["Fecha" + j]).ToString("JSON");
             CC.idCuenta = Resultados[i]["idCuenta"];
             CC.Monto = Convert.ToDecimal(Resultados[i]["Monto" + j]);
-            if (CC.Monto > 0)
-            {
+            if (CC.Monto > 0) {
                 Compromiso.Compromisos_Cuentas.push(CC);
             }
             j++;
@@ -100,6 +102,7 @@ function Crear()
 }
 function Crear2()
 {
+
     Cuentas = JSON.parse(JSON.stringify(CuentasOrig));
     var Campos = [
             { Titulo: "Document", Campo: "Documento", Clase: "grdTexto", Ordenacion: false, Filtro: false },

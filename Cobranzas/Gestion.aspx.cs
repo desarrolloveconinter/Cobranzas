@@ -17,15 +17,28 @@ namespace Cobranzas
 {
     public partial class Gestion : System.Web.UI.Page
     {
+       
         #region Para ViewState en servidor
         protected override void SavePageStateToPersistenceMedium(object viewState)
         {
             string str = "VIEWSTATE#" + Request.UserHostAddress + "#" + DateTime.Now.Ticks.ToString();// Generar una clave única para este viewstate
             Cache.Add(str, viewState, null, DateTime.Now.AddMinutes(Session.Timeout), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null);// Guardar el viewstate en el caché.
             ClientScript.RegisterHiddenField("__VIEWSTATE_CLAVE", str);
+
+
+            
+            
+
+
+
         }
         protected override object LoadPageStateFromPersistenceMedium()
         {
+
+
+           
+
+
             string str = Request.Form["__VIEWSTATE_CLAVE"];// Lee la Clave para cargar el ViewState
             if (!str.StartsWith("VIEWSTATE#"))// Revisa si es una clave válida...
             {
@@ -39,6 +52,10 @@ namespace Cobranzas
             try
             {
 
+                //ServicioSupervision.SupervisionServiceClient ssc = new ServicioSupervision.SupervisionServiceClient();
+                //var lista = ssc.OperadoresSupervisadosConSupervisor_lst(Sesion.idOperador);
+                
+                
                 //if (Request["Reintentos"] != null)
                 //{
                 //    Thread.Sleep(5000);
@@ -58,7 +75,9 @@ namespace Cobranzas
                     idOperador.Value = Sesion.Operador.idOperador.ToString(); //Supervisado
                 }
                 TipoOperador.Value = Sesion.Operador.Tipo;
-
+               
+                lblAvPri.InnerText = "Aviso Prioritario";
+                lblAvPri.Visible = true;
                 if (Sesion.idPersona != null) idPersona.Value = Sesion.idPersona.ToString();
                 if (Sesion.idOperador == 0) { Response.Redirect("Default.aspx"); }
                 chrtGestiones.ImageUrl = Negocios.MostrarGrafico(Sesion.Operador.idOperador);
@@ -73,7 +92,12 @@ namespace Cobranzas
                     liDistribucion.Visible = false;  //.Style.Add(HtmlTextWriterStyle.Display, "none");
                     liSupervision.Visible = false;//.Style.Add(HtmlTextWriterStyle.Display, "none");
                     idFiltro.Visible = false;
+                    chkAvisoPrioritario.Disabled = true;
+                   // FacturaExclusion.Visible = false;
+
                 }
+
+                
 
                 //Es de sistemas
                 liSistema.Visible = Sesion.Operador.idGrupo == 1;
@@ -105,5 +129,7 @@ namespace Cobranzas
                 //Response.Redirect("Gestion.aspx?Reintentos=" + Reintentos, true);
             }
         }
+
+        
     }
 }

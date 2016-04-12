@@ -25,6 +25,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Configuration;
 using System.Data.Common;
+using System.Web.UI.WebControls;
 //using Cobranzas.Servicios;
 /*using System;
 using System.Collections.Generic;
@@ -64,13 +65,15 @@ namespace Cobranzas
     [ServiceBehavior(IncludeExceptionDetailInFaults = true, MaxItemsInObjectGraph = 2147483647)]
     public class wsCobranzas
     {
+        private object bdContext;
+
         // Para usar HTTP GET, agregue el atributo [WebGet]. (El valor predeterminado de ResponseFormat es WebMessageFormat.Json)
         // Para crear una operación que devuelva XML,
         //     agregue [WebGet(ResponseFormat=WebMessageFormat.Xml)]
         //     e incluya la siguiente línea en el cuerpo de la operación:
         //         WebOperationContext.Current.OutgoingResponse.ContentType = "text/xml";
-              
-        
+
+
         #region Avisos
         [OperationContract, WebInvoke(Method = "POST")]
         public List<otAviso> Avisos_Creados_lst(int idOperador, DateTime FechaDesde, DateTime FechaHasta)
@@ -150,17 +153,25 @@ namespace Cobranzas
             {
                 using (CobranzasDataContext db = new CobranzasDataContext())
                 {
-                    Avisos AvisoNew = new Avisos();
-                    AvisoNew.Aviso = Aviso.Aviso;
-                    AvisoNew.idOperadorCrea = Aviso.idOperadorCrea ?? Sesion.idOperador;
-                    AvisoNew.idOperador = Aviso.idOperador ?? Sesion.idOperador;
-                    AvisoNew.FechaCrea = DateTime.Now;
-                    AvisoNew.FechaOriginal = Aviso.FechaAviso;
-                    AvisoNew.FechaAviso = AvisoNew.FechaOriginal;
-                    AvisoNew.idPersona = Aviso.idPersona;
-                    AvisoNew.Prioritario = Aviso.Prioritario;
-                    db.Avisos.InsertOnSubmit(AvisoNew);
-                    db.SubmitChanges();
+                    
+                    
+                        Avisos AvisoNew = new Avisos();
+                        AvisoNew.Aviso = Aviso.Aviso;
+                        AvisoNew.idOperadorCrea = Aviso.idOperadorCrea ?? Sesion.idOperador;
+                        AvisoNew.idOperador = Aviso.idOperador ?? Sesion.idOperador;
+                        AvisoNew.FechaCrea = DateTime.Now;
+                        AvisoNew.FechaOriginal = Aviso.FechaAviso;
+                        AvisoNew.FechaAviso = AvisoNew.FechaOriginal;
+                        AvisoNew.idPersona = Aviso.idPersona;
+
+
+                        AvisoNew.Prioritario = Aviso.Prioritario;
+
+
+                        db.Avisos.InsertOnSubmit(AvisoNew);
+                        db.SubmitChanges();
+                        
+                    
                     return true;
                 }
             }
@@ -4838,6 +4849,7 @@ namespace Cobranzas
                 using (CobranzasDataContext db = new CobranzasDataContext()) { CS = db.Connection.ConnectionString; }
                 SqlConnection Conn = new SqlConnection(CS);
                 SqlCommand Comm = Conn.CreateCommand();
+
                 Comm.CommandText = Comando;
                 Comm.CommandType = CommandType.Text;
                 DbDataAdapter DAdap = new SqlDataAdapter(Comm);
@@ -5277,6 +5289,148 @@ namespace Cobranzas
        }
    }
    */
+
+
+        public Boolean Rank(DateTime FechaDesde, DateTime FechaHasta)
+        {
+            try
+            {
+                using (CobranzasDataContext db = new CobranzasDataContext())
+                {
+                    DataTable dt = new System.Data.DataTable();
+
+
+                    Table tablaOperadores = new Table();
+                    TableRow trTituloMes = new TableRow();
+                    TableRow trTitulos = new TableRow();
+                    TableHeaderCell tdTituloNombre = new TableHeaderCell();
+                    TableHeaderCell tdTituloMes = new TableHeaderCell();
+                    TableHeaderCell tdMontoRecaudado = new TableHeaderCell();
+                    TableHeaderCell tdMontoMeta = new TableHeaderCell();
+                    TableHeaderCell tdPorcentaje = new TableHeaderCell();
+
+                    tablaOperadores.BorderWidth = 1;
+                    tablaOperadores.BorderColor = System.Drawing.Color.Black;
+                    tablaOperadores.Width = new Unit("100%");
+
+
+
+                    tdTituloNombre.Text = "Nombre";
+                    tdMontoRecaudado.Text = "Monto Recaudado";
+                    tdMontoMeta.Text = "Monto Meta";
+                    tdPorcentaje.Text = "Porcentaje";
+                    tdTituloMes.ColumnSpan = 4;
+                    tdTituloMes.HorizontalAlign = HorizontalAlign.Center;
+
+                    // tdTituloMes.Text = "";
+
+                    dt = Negocios.ListarOperadoresSUpervisor(Sesion.Operador.idOperador, FechaDesde, FechaHasta);
+
+
+                    trTituloMes.Controls.Add(tdTituloMes);
+                    trTitulos.Controls.Add(tdTituloNombre);
+                    trTitulos.Controls.Add(tdMontoRecaudado);
+                    trTitulos.Controls.Add(tdMontoMeta);
+                    trTitulos.Controls.Add(tdPorcentaje);
+                    tablaOperadores.Controls.Add(trTituloMes);
+                    tablaOperadores.Controls.Add(trTitulos);
+
+
+                    string[] datosOperador = new string[dt.Rows.Count];
+                    Decimal[] datosPorcentaje = new Decimal[dt.Rows.Count];
+                    string[] datosidOperador = new string[dt.Rows.Count];
+
+
+                    for (int j = 0; j < dt.Rows.Count; j++)
+                    {
+
+
+                        wsCobranzas ws = new wsCobranzas();
+                        var Listado = ws.Ranking_Operador_lst(int.Parse(dt.Rows[j]["idOperador"].ToString()), FechaDesde, FechaHasta);
+
+
+
+                        datosOperador[j] = Listado[0].Operador.ToString();
+                        datosPorcentaje[j] = Listado[0].Porc;
+                        datosidOperador[j] = Listado[0].ToString();
+
+
+
+
+                        TableRow trContenido = new TableRow();
+                        TableCell tdContenidoNombre = new TableCell();
+                        TableCell tdContenidoMontoRecaudado = new TableCell();
+                        TableCell tdContenidoMontoMeta = new TableCell();
+                        TableCell tdContenidoPorcentaje = new TableCell();
+                        tdContenidoNombre.Text = Listado[0].Operador.ToString();
+                        tdContenidoMontoRecaudado.Text = Listado[0].Real.ToString();
+                        tdContenidoMontoMeta.Text = Listado[0].Meta.ToString();
+                        tdContenidoPorcentaje.Text = Listado[0].Porc.ToString();
+                        trContenido.Controls.Add(tdContenidoNombre);
+                        trContenido.Controls.Add(tdContenidoMontoRecaudado);
+                        trContenido.Controls.Add(tdContenidoMontoMeta);
+                        trContenido.Controls.Add(tdContenidoPorcentaje);
+                        tablaOperadores.Controls.Add(trContenido);
+                    }
+
+
+
+
+                    Image imgChart = new Image();
+                    imgChart.ImageUrl = Negocios.MostrarGraficoTotalPorcentajePorOperador(datosOperador, datosPorcentaje, datosidOperador, "#cboMesRank");
+                    
+                
+
+                }
+                return true;
+            }
+            catch (Exception Ex)
+            {
+                throw Ex.Informar();
+            }
+        }
+
+
+        [OperationContract, WebInvoke(Method = "POST")]
+        public Boolean Factura_upd(string Codigo)
+        {
+            try
+            {
+
+                using (CobranzasDataContext db = new CobranzasDataContext())
+                {
+
+
+                    //Campanas_Cuentas cliente1 = db.Campanas_Cuentas.Single(Campanas_Cuentas => Campanas_Cuentas.idCuenta == int.Parse(idCuenta));
+
+
+                    //cliente1.idCampana = 13;
+
+                    //db.SubmitChanges();
+                    int idCampana = 13;
+                    
+                    Negocios.ExclusionFactura(Codigo, idCampana);
+
+
+
+
+
+
+
+
+                    return true;
+
+                }
+
+            }
+            catch (Exception Ex)
+            {
+                throw (Ex);
+
+            }
+        }
+
+
 
     }
 }

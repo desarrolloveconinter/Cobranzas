@@ -390,6 +390,10 @@ function EsValido()
 }
 function Finalizar()
 {
+    Preguntar({ mensaje: "¿Está seguro de que desea guardar la Campaña?", funcion: Finalizar2 });
+
+}
+function Finalizar2() {
     Campana_Config();
 }
 function AgregarOperador()

@@ -63,11 +63,21 @@ function _CuentasSinAsignar_lst(msg)
 }
 function AsignarOperador()
 {
+    Preguntar({ mensaje: "¿Está seguro de que desea asignar a operador?", funcion: AsignarOperador2 });
+
+}
+function AsignarOperador2() {
+
     //Operadores_Cuentas_ins(_Operadores_Cuentas_ins, $("#cboOperador").val(), ObtenerSeleccionados("pnlCuentas").select("idCuenta"));RA
     LlamarServicio(_Operadores_Cuentas_ins, "Operadores_Cuentas_ins", { idOperador: $("#cboOperador").val(), Cuentas: ObtenerSeleccionados("pnlCuentas").select("idCuenta") });
 }
 function AsignarCampana()
 {
+    Preguntar({ mensaje: "¿Está seguro de que desea asignar a campaña?", funcion: AsignarCampana2 });
+
+}
+function AsignarCampana2() {
+
     //Campanas_Cuentas_ins(_Campanas_Cuentas_ins, $("#cboCampana").val(), ObtenerSeleccionados("pnlCuentas").select("idCuenta"));RA
     LlamarServicio(_Campanas_Cuentas_ins, "Campanas_Cuentas_ins", { idCampana: $("#cboCampana").val(), Cuentas: ObtenerSeleccionados("pnlCuentas").select("idCuenta") });
 }

@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Web.Configuration;
 using System.Configuration;
 using System.IO;
+using Cobranzas.Codigo;
 
 namespace Cobranzas.Emergentes
 {
@@ -24,7 +25,8 @@ namespace Cobranzas.Emergentes
             }
             if (Request.Files.Count > 0)
             {
-                Seguridad.Ejecutar(Guardar);
+                                Seguridad.Ejecutar(Guardar);
+                //Guardar();
             }
         }
 

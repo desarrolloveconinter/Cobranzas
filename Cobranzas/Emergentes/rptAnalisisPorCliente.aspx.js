@@ -50,7 +50,7 @@ function _AnalisisPorCliente_rpt(msg) {
             { Titulo: "Country", Campo: "Pais", Clase: "grdTexto", Ordenacion: true, Filtro: true },
             { Titulo: "PersonType", Campo: "TipoPersona", Clase: "grdTexto", Ordenacion: true, Filtro: true },
             { Titulo: "Client", Campo: "Cliente", Clase: "grdTexto", Ordenacion: true, Filtro: true },
-            { Titulo: "Total", Campo: "Total", Clase: "grdMonto", Ordenacion: true, Filtro: true },
+            { Titulo: "Total USD", Campo: "Total", Clase: "grdMonto", Ordenacion: true, Filtro: true },
             { Titulo: "0-30", Campo: "M0a30", Clase: "grdMonto", Ordenacion: true, Filtro: true },
             { Titulo: "30-45", Campo: "M30a45", Clase: "grdMonto", Ordenacion: true, Filtro: true },
             { Titulo: "45-60", Campo: "M45a60", Clase: "grdMonto", Ordenacion: true, Filtro: true },

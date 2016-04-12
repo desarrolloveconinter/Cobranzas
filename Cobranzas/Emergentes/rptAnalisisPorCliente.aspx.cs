@@ -30,7 +30,7 @@ namespace Cobranzas
             Resources.Recursos.Country + ";" +
             "TipoPersona" + ";" +
             Resources.Recursos.Client + ";" +
-            Resources.Recursos.Total + ";" +
+            Resources.Recursos.Total + "USD" + ";" +
             "0-30" + ";" +
             "30-45" + ";" +
             "45-60" + ";" +

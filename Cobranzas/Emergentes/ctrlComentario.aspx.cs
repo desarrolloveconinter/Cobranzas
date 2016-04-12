@@ -20,6 +20,7 @@ namespace Cobranzas
                     txtComentario.Text = Comentario;
                 }
             }
+            btnGuardar.Attributes.Add("onclick", "javascript:return confirm('Esta seguro que desea Guardar el comentario?')");
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)

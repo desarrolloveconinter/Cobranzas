@@ -46,6 +46,11 @@ function Seleccionar(idStatus, Nivel, Tipo, Nombre, Activo) {
     $("#chkActivo")[0].checked = Activo;
 }
 function Guardar() {
+    Preguntar({ mensaje: "¿Está seguro de que desea Guardar?", funcion: Guardar2 });
+
+}
+function Guardar2() {
+    
     var Status = {
         idStatus: $("#idStatus").val(),
         Nivel: $("#txtNivel").val(),

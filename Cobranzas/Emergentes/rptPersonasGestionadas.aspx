@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="rptPersonasGestionadas.aspx.cs" Inherits="Cobranzas.Emergentes.rptPersonasGestionadas" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script src="rptPersonasGestionadas.aspx.js?ver=8" type="text/javascript"></script>
+    <script src="rptPersonasGestionadas.aspx.js?ver=9" type="text/javascript"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <h3>Personas Gestionadas</h3>

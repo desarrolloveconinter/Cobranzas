@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="ctrlCorreo.aspx.cs" Inherits="Cobranzas.ctrlCorreo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script src="ctrlCorreo.aspx.js?v=6" type="text/javascript"></script>
+    <script src="ctrlCorreo.aspx.js?v=7" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(Inicializar);
     </script>
@@ -23,7 +23,8 @@
             </td>
         </tr>
     </table>
-    <input type="hidden" runat="server" id="idOperador" /> <input type="hidden" runat="server" id="idCorreo" />
+    <input type="hidden" runat="server" id="idOperador" /> 
+    <input type="hidden" runat="server" id="idCorreo" />
     <table style="width:100%">
         <tr>
             <th>

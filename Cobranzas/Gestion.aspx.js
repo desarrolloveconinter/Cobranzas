@@ -53,6 +53,13 @@ function Inicializar() {
                 LlamarServicio(_ActualizarGraficoSupervision, "ActualizarGraficoSupervision", { idOperador: idOpA() });
                 LlamarServicio(_ActualizarGraficoPorSemana, "ActualizarGraficoPorSemana", { idOperador: idOpA() });
             }
+
+
+
+            if (ui.newPanel[0].id == "tabDocumentos") {
+                LlamarServicio(_ActualizarGraficoSupervision, "ActualizarGraficoSupervision", { idOperador: idOpA() });
+                LlamarServicio(_ActualizarGraficoPorSemana, "ActualizarGraficoPorSemana", { idOperador: idOpA() });
+            }
         }
     });
 
@@ -139,20 +146,35 @@ function _Personas_Tocadas_lst(msg) {
 }
 function AsignarCorreosAPersona(CrearRegla) {
     var idPersona = $("#cboaPersona").val();
-    if (idPersona == "" || idPersona == null) { Mensaje({ mensaje: Recursos["msgMustSelectPerson"] }); return; }
-    var CorreosSel = ObtenerSeleccionados("pnlCorreos").select("idCorreo");
-    if (CorreosSel.length == 0) {
-        Mensaje({ mensaje: "Debe Seleccionar el/los correos Primero" });
-        return;
+    var Respuesta = confirm("¿Esta seguro que desea asignar correo?")
+
+    if (Respuesta == true) {
+        var idPersona = $("#cboaPersona").val();
+        if (idPersona == "" || idPersona == null) { Mensaje({ mensaje: Recursos["msgMustSelectPerson"] }); return; }
+        var CorreosSel = ObtenerSeleccionados("pnlCorreos").select("idCorreo");
+        if (CorreosSel.length == 0) {
+            Mensaje({ mensaje: "Debe Seleccionar el/los correos Primero" });
+            return;
+        }
+        //Correos_Persona_ins(_Correos_Persona_ins, CorreosSel, idPersona, CrearRegla);RA
+        LlamarServicio(_Correos_Persona_ins, "Correos_Persona_ins", { Correos: CorreosSel, idPersona: idPersona, CrearRegla: CrearRegla });
     }
-    //Correos_Persona_ins(_Correos_Persona_ins, CorreosSel, idPersona, CrearRegla);RA
-    LlamarServicio(_Correos_Persona_ins, "Correos_Persona_ins", { Correos: CorreosSel, idPersona: idPersona, CrearRegla: CrearRegla });
+    
 }
 function _Correos_Persona_ins(msg) {
     Mensaje({ mensaje: Recursos["msgMailAssigned"] });
     RefrescarCorreos();
 }
 function MarcarComoPersonal() {
+
+    Preguntar({ mensaje: "¿Esta seguro que desea marcar correo como personal?", funcion: MarcarComoPersonal2 });
+  
+
+}
+
+function MarcarComoPersonal2() {
+
+    
     var Correos = ObtenerSeleccionados("pnlCorreos").select("idCorreo");
     if (Correos.length == 0) {
         Mensaje({ mensaje: "Debe Seleccionar el/los correos Primero" }); return;
@@ -160,6 +182,7 @@ function MarcarComoPersonal() {
     LlamarServicio(_Correos_MarcarPersonal_upd, "Correos_MarcarPersonal_upd", { Correos: Correos, TipoEspecial: 2 });
 
 }
+
 function _Correos_MarcarPersonal_upd() {
     RefrescarCorreos();
 }
@@ -679,7 +702,12 @@ function AbrirDocumento(idCuenta) {
 }
 function _Personas_Cuentas_lst(msg) {
     //---Cuentas
+
+
     if (msg.d.length > 0 && msg.d[0].idPersona != idP()) return; //Si se van a cargar cuentas que no son de la persona actual... no la cargues.
+
+    
+    
     Tabla({
         Contenedor: "pnlPeCuentas",
         Resultado: msg.d,
@@ -693,8 +721,7 @@ function _Personas_Cuentas_lst(msg) {
             { Titulo: "Overdue", Campo: "Antiguedad", Clase: "grdEntero", Ordenacion: true, Filtro: true, Resumen: "NINGUNO" },
             { Titulo: "Client", Campo: "CodigoCliente", Clase: "grdTexto", Ordenacion: true, Filtro: true },
             { Titulo: "Product", Campo: "Producto", Clase: "grdTexto", Ordenacion: true, Filtro: true },
-            { Titulo: "Total", Campo: "Total", Campo2: "Moneda", Clase: "grdTexto", Ordenacion: false, Filtro: false },
-            { Titulo: "Remaining", Campo: "Deuda", Campo2: "Moneda", Clase: "grdDecimal", Ordenacion: false, Filtro: false },
+
             { Titulo: "TotalUSD", Campo: "TotalDolar", ToolTip: "CambioDolar", Clase: "grdDecimal", Post: "USD", Ordenacion: true, Filtro: true },
             { Titulo: "RemainingUSD", Campo: "DeudaDolar", ToolTip: "CambioDolar", Clase: "grdDecimal", Post: "USD", Ordenacion: true, Filtro: true },
             { Titulo: "TotalLocal", Campo: "TotalLocal", Campo2: "MonedaLocal", ToolTip: "CambioLocal", Clase: "grdDecimal", Ordenacion: true, Filtro: true },
@@ -817,6 +844,12 @@ function obtenerCuentasTabla(tablaCuenta) {
     return facturas;
 }
 function NuevoPago() {
+
+    Preguntar({ mensaje: "¿Está seguro de que desea realizar un nuevo pago?", funcion: NuevoPago2 });
+}
+
+function NuevoPago2() {
+
     var tablaCuenta = $("#pnlPeCuentas")[0].getElementsByTagName("table")[0];
     //Cuentas = obtenerCuentasTabla(tablaCuenta);
     Cuentas = ObtenerSeleccionados("pnlPeCuentas").select("idCuenta");
@@ -835,6 +868,7 @@ function NuevoPago() {
     Emergente({ url: "/Emergentes/ctrlNuevoPago.aspx", modal: false });
     //    }
 }
+
 function NuevoCompromiso() {
     Cuentas = ObtenerSeleccionados("pnlPeCuentas").select("idCuenta");
     idPersona = $("#idPersona").val();
@@ -886,7 +920,7 @@ function AbrirPago(idPago, Aprobado, Confirmado) {
         Emergente({ url: "/Emergentes/ctrlNuevoPago.aspx?idPago=" + idPago.toString() });
     }
     else {
-        Mensaje({ mensaje: "El Pago ya ha sido confirmado, no puede editarlo" });
+        Emergente({ url: "/Emergentes/ctrlDetallesPago.aspx?idPago=" + idPago.toString() });
     }
 }
 function AbrirCompromiso(idCompromiso) {
@@ -906,6 +940,9 @@ function _Cartera_lst(msg) {
     $("#pnlCartera").empty();
     bandera = 0;
     var Panel = $("#pnlCartera")[0];
+
+       
+
     for (var i = 0; i < msg.d.length; i++) {
         Grupo = msg.d[i];
         
@@ -934,16 +971,17 @@ function _Cartera_lst(msg) {
             $('#' + this.id.substr(1)).slideToggle();
             OcultarAvisos();
         })
-
+        
+            
         var div = document.createElement("div");
         div.id = "pnlCartera" + i.toString();
         div.className = "Seccion";
         Panel.appendChild(div);
-
+       
             Tabla({
                 Contenedor: div.id,
                 Resultado: Grupo.Personas,
-                idSeleccion: (OperadorEs('SU', 'CO', 'GE', 'AD') ? "idPersona" : undefined),
+                //idSeleccion: (OperadorEs('SU', 'CO', 'GE', 'AD') ? "idPersona" : undefined),
                 Campos: [
                 { Titulo: "Status", Campo: function (a) { return "/Img/" + a.TipoStatus + "24.png"; }, Clase: "grdTexto", Ordenacion: "TipoStatus", Tooltip: "StatusUltimaGestion", Filtro: false, Imagen: true },
                 { Titulo: "R", Campo: "TieneAviso", Clase: "grdBooleano", Ordenacion: true, Filtro: false },
@@ -958,17 +996,29 @@ function _Cartera_lst(msg) {
                 { Titulo: "TotalLocal", Campo: "TotalLocal", Campo2: "Moneda", Clase: "grdDecimal", Ordenacion: false, Filtro: false },
                 { Titulo: "RemainingLocal", Campo: "RestanteLocal", Campo2: "Moneda", Clase: "grdDecimal", Ordenacion: false, Filtro: false },
                 { Titulo: "Country", Campo: function (a) { return "/Img/Banderas/" + a.idPais + "24.png"; }, Clase: "grdTexto", Ordenacion: "Iso3", Filtro: false, Imagen: true },
+                { Titulo: "Campaña", Campo: "Grupo.idCampana", clase: "grdTexto", Ordenacion: false, filtro: false },
                 ],
                 FuncSeleccionar: "if (OperadorEs('SO','BO','SU','CO','GE','AD','SI')) Persona_Mostrar(«idPersona»);"
             });
             if (Grupo.idCampana == -2) {
                 bandera = 1;
-            }
                 
-
+               
+            }
+            
+            
         }
 
+        
+        if (bandera == 1) {
+            
 
+            document.getElementById('ButtonOtrasPersonas').style.display = 'none';
+        }
+        if (bandera == 0) {
+            document.getElementById('ButtonOtrasPersonas').style.display = 'visible';
+            document.getElementById('ButtonOtrasPersonas').style.display = '';
+        }
 
     }
 
@@ -1116,11 +1166,24 @@ function BuscarPAC() {
     window.open("http://www.pac.com.ve/index.php?option=com_jumi&fileid=9&Itemid=119&keyword=" + Nombre, "_blank");
 }
 function CrearAviso() {
+    var Nombre = $("#lblPeNombre").text();
+    Preguntar({ mensaje: "Esta seguro que desea crear el aviso?", funcion: CrearAviso2 });
+    
+    
+    
+}
+
+function CrearAviso2() {
+
+    
+
     var Aviso = {};
     Aviso.idOperador = $("#cboOperadorAviso").val();
     Aviso.idOperadorCrea = idOpL();
     Aviso.idPersona = $("#idPersona").val();
+
     Aviso.Prioritario = $("#chkAvisoPrioritario")[0].checked;
+
 
     if ($("#dtpFechaAviso").val() == "") {
         Mensaje({ mensaje: "Debe seleccionar una fecha válida para este aviso" });
@@ -1134,12 +1197,14 @@ function CrearAviso() {
     Aviso.Aviso = $("#txtNuevoAviso").val();
     //Avisos_ins(_Avisos_ins, Aviso);RA
     LlamarServicio(_Avisos_ins, "Avisos_ins", { Aviso: Aviso });
+
 }
 function _Avisos_ins(msg) {
     if (msg.d === true) {
         Mensaje({ mensaje: "Tu aviso ha sido creado exitosamente" });
         $("#txtNuevoAviso").val("");
     }
+    
 }
 function Seniat() {
     Emergente({ url: "http://contribuyente.seniat.gob.ve/BuscaRif/BuscaRif.jsp" });
@@ -1604,6 +1669,9 @@ function _EjecutarComando(msg) {
     TablaDataSet(msg.d, 'pnlResultadoBDComando');
 }
 function ExcluirMetasCuentas() {
+    Preguntar({ mensaje: "¿Está seguro de que desea Excluir la cuenta?", funcion: ExcluirMetasCuentas2 });
+}
+function ExcluirMetasCuentas2() {
     var Motivo = $("#cboExclusionMotivo").val();
     if (Motivo == "") { Mensaje({ mensaje: "Debe Seleccionar un Motivo para Excluir" }); return; }
     Cuentas = ObtenerSeleccionados("pnlPeCuentas").select("idCuenta");
@@ -1611,6 +1679,9 @@ function ExcluirMetasCuentas() {
     LlamarServicio(_Exclusiones_ins, "Exclusiones_inss", { idOperador: idOp(), Cuentas: Cuentas, idMotivo: Motivo });
 }
 function ExcluirMetasPersona() {
+    Preguntar({ mensaje: "¿Está seguro de que desea excluir la Persona?", funcion: ExcluirMetasPersona2 });
+}
+function ExcluirMetasPersona2() {
     var Motivo = $("#cboExclusionMotivo").val();
     if (Motivo == "") { Mensaje({ mensaje: "Debe Seleccionar un Motivo para Excluir" }); return; }
     LlamarServicio(_Exclusiones_ins, "Exclusiones_ins", { idOperador: idOp(), idPersona: idP(), idMotivo: Motivo });
@@ -1808,4 +1879,50 @@ function _GestionGupoEmpresa_ins(msg) {
         }
         LimpiarAdjuntos();
     }
+}
+
+function EjecutarFacturaUpd()
+{
+    var lstCuentas2 = ObtenerSeleccionados("pnlPeCuentas").select("idCuenta");    
+    if (lstCuentas2.length == 0 || lstCuentas2.length > 1 && elem.length > 2) {
+        //        Mensaje({ mensaje: "No hay facturas seleccionadas, ¿Desea continuar?", titulo: "Guardando gestión", buttons: { Aceptar: function () { Gestion_ins(_Gestion_ins, rtGestion); $(this).dialog("close"); }, Cancelar: function () { $(this).dialog("close"); } } });
+        Mensaje({ mensaje: "No ha seleccionado ninguna factura, ó selecciono más de una factura", titulo: "Excluir Factura" });
+        return
+    }
+    
+    Preguntar({ mensaje: "¿Desea modificar la factura seleccionada?", titulo: "Modificar Factura", funcion: ModificarFactura });
+    
+
+}
+
+
+function _Factura_upd(msg)
+{
+    
+    
+    Mensaje({ mensaje: "La factura se ha modificado de forma exitosa", titulo: "Modificar Factura", funcion: FinalizarGestion });
+    RefrescarGestiones()
+
+    try {
+        for (var i = 0; i < Cartera.length; i++) {
+            var ItemCartera = Cartera[i].Personas.where(function (a) { return a.idPersona == idP(); })[0];
+            if (ItemCartera == undefined) break;
+            ItemCartera.FechaUltimaGestion = (new Date()).ToString("JSON");
+            var Status = lstStatus.where(function (a) { return a.idStatus == idUltimoStatus; });
+            ItemCartera.StatusUltimaGestion = Status[0].Nombre;
+            ItemCartera.TipoStatus = Status[0].Tipo;
+        }
+        _Cartera_lst({ d: Cartera });
+    } catch (e) {
+        ActualizarCartera();
+    }
+    LimpiarAdjuntos();
+
+}
+
+function ModificarFactura ()
+{
+    var lstCodigo = ObtenerSeleccionados("pnlPeCuentas").select("Documento");
+    LlamarServicio(_Factura_upd, "Factura_upd", { Codigo: lstCodigo[0] });
+
 }

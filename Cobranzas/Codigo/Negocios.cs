@@ -278,7 +278,7 @@ namespace Cobranzas
 
         public static String MostrarGraficoTotalPorcentajePorOperador(string[] datosOp, Decimal[] datosPorc, string[] datosIdOp, string mes)
         {
-            
+
             Chart Grafico = new Chart();
             Grafico.Height = 400;
             Grafico.Width = 600;
@@ -1182,8 +1182,154 @@ namespace Cobranzas
             }
         }
 
+        public static void ExclusionFactura(string Codigo, int idCapana)
+        {
+            try
+            {
+                DataAccessLayer ObjDatos = new DataAccessLayer();
+                SqlParameter[] SqlParametros = new SqlParameter[2];
+                DataTable ExclusionFactura = new DataTable();
+
+                SqlParametros[0] = new SqlParameter("Codigo", SqlDbType.VarChar);
+                SqlParametros[0].Value = Codigo;
+
+                SqlParametros[1] = new SqlParameter("idCampana", SqlDbType.Int);
+                SqlParametros[1].Value = idCapana;
+
+                ObjDatos.EjecutarAccion("ExclusionFactura", SqlParametros);
+
+
+            }
+            catch (Exception Ex)
+            {
+                throw Ex.Informar();
+            }
+
+        }
+
+
+        public static DataTable VerDocumentos()
+        {
+            try
+            {
+
+
+                DataAccessLayer ObjDatos = new DataAccessLayer();
+                SqlParameter[] SqlParametros = new SqlParameter[0];
+                DataTable ListaDocuemntosInteres = new DataTable();
+
+                ListaDocuemntosInteres = ObjDatos.EjecutarConsulta("VistaDocumentosInteres", SqlParametros);
+                return ListaDocuemntosInteres;
+            }
+            catch (Exception Ex)
+            {
+                throw Ex.Informar();
+            }
+        }
+
+        public static void AgregarDocumento(string Nombre, byte TipoDocumento, string extn)
+        {
+
+            
+            try
+            {
+                DataAccessLayer ObjDatos = new DataAccessLayer();
+                SqlParameter[] SqlParametros = new SqlParameter[3];
+                DataTable InsDocumentosInteres = new DataTable();
+
+                SqlParametros[0] = new SqlParameter("Nombre", SqlDbType.VarChar);
+                SqlParametros[0].Value = Nombre;
+
+                SqlParametros[1] = new SqlParameter("TipoDocumento", SqlDbType.VarBinary);
+                SqlParametros[1].Value = TipoDocumento;
+
+                SqlParametros[2] = new SqlParameter("Exten", SqlDbType.VarChar);
+                SqlParametros[2].Value = extn;
+
+                ObjDatos.EjecutarAccion("InsDocumentosInteres", SqlParametros);
+
+
+            }
+            catch (Exception Ex)
+            {
+                throw Ex.Informar();
+            }
+
+        }
+
+
+        public static DataTable EstadoSesion(int idOperador, string localIP)
+        {
+            try
+            {
+                DataAccessLayer ObjDatos = new DataAccessLayer();
+                SqlParameter[] SqlParametros = new SqlParameter[2];
+                DataTable EstatusSesion = new DataTable();
+                SqlParametros[0] = new SqlParameter("@idOperador", SqlDbType.Int);
+                SqlParametros[0].Value = idOperador;
+
+
+                SqlParametros[1] = new SqlParameter("@ip", SqlDbType.Char);
+                SqlParametros[1].Value = localIP;
+
+
+                EstatusSesion = ObjDatos.EjecutarConsulta("Sesion", SqlParametros);
+                return EstatusSesion;
+            }
+            catch (Exception Ex)
+            {
+                throw Ex.Informar();
+            }
+        }
+
+        public static DataTable CerrarSesion(int idOperador, string localIP)
+        {
+            try
+            {
+                DataAccessLayer ObjDatos = new DataAccessLayer();
+                SqlParameter[] SqlParametros = new SqlParameter[2];
+                DataTable EstatusSesion = new DataTable();
+                SqlParametros[0] = new SqlParameter("@idOperador", SqlDbType.Int);
+                SqlParametros[0].Value = idOperador;
+
+
+                SqlParametros[1] = new SqlParameter("@ip", SqlDbType.Char);
+                SqlParametros[1].Value = localIP;
+
+
+                EstatusSesion = ObjDatos.EjecutarConsulta("Cerrar", SqlParametros);
+                return EstatusSesion;
+            }
+            catch (Exception Ex)
+            {
+                throw Ex.Informar();
+            }
+        }
+
+
+        public static DataTable DetPago(int idPago)
+        {
+            try
+            {
+                DataAccessLayer ObjDatos = new DataAccessLayer();
+                SqlParameter[] SqlParametros = new SqlParameter[1];
+                DataTable DetaPago = new DataTable();
+                SqlParametros[0] = new SqlParameter("@idPago", SqlDbType.Int);
+                SqlParametros[0].Value = idPago;
+                
+                DetaPago = ObjDatos.EjecutarConsulta("DetallesPago", SqlParametros);
+                return DetaPago;
+            }
+            catch (Exception Ex)
+            {
+                throw Ex.Informar();
+            }
+        }
+
 
     }
+
+
 
     public class CobranzasException : Exception
     {

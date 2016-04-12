@@ -82,6 +82,14 @@ function _Reclamos_ins(msg) {
     }
 }
 function Insertar_Reclamo() {
+
+    Preguntar({ mensaje: "¿Está seguro de que desea insertar nuevo reclamo?", funcion: Insertar_Reclamo2 });
+    
+}
+
+function Insertar_Reclamo2() {
+
+    
     if ($("#txtDescripcionReclamo").val() == "") {
         Mensaje({ mensaje: Recursos["msgMustEnterDescription"] });
         return;

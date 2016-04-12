@@ -38,12 +38,28 @@ function _TelefonosPersonas_lst(msg) {
         ]
     })
 }
-
 function Seleccionar(idTelefono) {
+
+    var Respuesta = confirm("Desea Eliminar el numero telefonico?")
+
+    if (Respuesta == true)
+    {
+        LlamarServicio(_Telefonos_del, "Telefonos_del", { idTelefono: idTelefono, idOperador: Argumentos.idOperador });
+        window.parent.RemoverTelefono(idTelefono);
+    }   
+    
+    
     //idOperador = $("#idOperador").val();
-    LlamarServicio(_Telefonos_del, "Telefonos_del", { idTelefono: idTelefono, idOperador: Argumentos.idOperador });
-    window.parent.RemoverTelefono(idTelefono);
+    //Preguntar({ mensaje: "¿Está seguro de que desea eliminar este contacto?", titulo: "Eliminar Numero Telefonico ", funcion: Eliminar(idTelefono) });
+   
 }
+
+//    function Eliminar(idTelefono) {
+//    //idOperador = $("#idOperador").val();
+       
+//    LlamarServicio(_Telefonos_del, "Telefonos_del", { idTelefono: idTelefono, idOperador: Argumentos.idOperador });
+//    window.parent.RemoverTelefono(idTelefono);
+//}
 function _Telefonos_del(msg) {
     Mensaje({ mensaje: Recursos.ActionCompleted });
     LlamarServicio(_TelefonosPersonas_lst, "TelefonosPersonas_lst", { idPersona: Argumentos.idPersona });

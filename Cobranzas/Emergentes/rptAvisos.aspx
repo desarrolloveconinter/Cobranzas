@@ -25,7 +25,8 @@
         </tr>
         <tr>
             <td colspan="4" style="text-align: center">
-                <input type="button" runat="server" value="<%$ Resources:Recursos, Consult%>" onclick="ConsultarAvisos();" /> 
+                <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
+                <input type="button"  runat="server" value="<%$ Resources:Recursos, Consult%>" onclick="ConsultarAvisos();" /> 
                 <asp:Button runat="server" ID="btnExportar" OnClick="btnExportar_Click" Text="<%$ Resources:Recursos, Export%>" />
             </td>
         </tr>

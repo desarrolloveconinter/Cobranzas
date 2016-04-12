@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="rptAnalisisPorCliente.aspx.cs" Inherits="Cobranzas.rptAnalisisPorCliente" ClientIDMode="Static" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script src="rptAnalisisPorCliente.aspx.js?ver=9" type="text/javascript"></script>
+    <script src="rptAnalisisPorCliente.aspx.js?ver=10" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(Inicializar);
     </script>
@@ -19,16 +19,15 @@
                 <div id="lstPais">
                 </div>
             </td>
+
+        </tr>
+        <tr>
             <th>
                 <asp:Literal ID="Literal5" runat="server" Text="<%$ Resources:Recursos, client%>" />:
             </th>
             <td>
                 <select id="cboCliente" runat="server" name="cboCliente">
                 </select>
-            </td>
-            <td rowspan="2">
-                <input type="button" runat="server" onclick="Ejecutar()" value="<%$ Resources:Recursos, Consult %>" />
-                <asp:Button runat="server" ID="btnExportar" OnClick="btnExportar_Click" Text="<%$ Resources:Recursos, Export %>" />
             </td>
         </tr>
         <tr>
@@ -38,6 +37,8 @@
             <td>
                 <input type="text" class="fecha" id="dtpFechaIni" runat="server" />
             </td>
+        </tr>
+        <tr>
             <th>
                 <asp:Literal ID="Literal2" runat="server" Text="<%$ Resources:Recursos, EndDate%>" />:
             </th>
@@ -54,6 +55,13 @@
                 </select>
             </td>
         </tr>
+        <tr>
+            <td colspan="2">
+                <input type="button" runat="server" onclick="Ejecutar()" value="<%$ Resources:Recursos, Consult %>" />
+                <asp:Button runat="server" ID="btnExportar" OnClick="btnExportar_Click" Text="<%$ Resources:Recursos, Export %>" />
+            </td>
+        </tr>
+
     </table>
     <div id="pnlResultados">
     </div>

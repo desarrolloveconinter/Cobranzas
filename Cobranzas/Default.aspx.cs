@@ -11,6 +11,8 @@ using System.Xml.Linq;
 using System.Data;
 using System.Data.SqlClient;
 using Cobranzas.Entidades;
+using System.Net;
+
 namespace Cobranzas
 {
     public partial class _Default : Pagina
@@ -42,15 +44,41 @@ namespace Cobranzas
             {
                 if (Request["RL"] == "1")
                 {
+                    
+
                     ClientScript.RegisterStartupScript(typeof(PageAction), "Ini", "window.parent.CerrarEmergente();", true);
                 }
                 if (Request["salir"] == "1")
                 {
                     try
                     {
-                        if (!Sesion.Impersonando) Sesion.Actividad("LO");
-                        Session.Abandon();
+                        
+                        using (CobranzasDataContext db = new CobranzasDataContext())
+                        {   
+                           
+                            DataTable dt = new DataTable();
+                            IPHostEntry host;
+                            string localIP = "";
+                            host = Dns.GetHostEntry(Dns.GetHostName());
+                            foreach (IPAddress ip in host.AddressList)
+                            {
+
+                                if (ip.AddressFamily.ToString() == "InterNetwork")
+                                {
+                                    localIP = ip.ToString();
+                                }
+                            }
+
+
+                            dt = Negocios.CerrarSesion(Sesion.idOperador, localIP);
+
+
+                            //if (!Sesion.Impersonando) Sesion.Actividad("LO");
+                            //Session.Abandon();
+                        }
                     }
+
+                    
                     catch (Exception Ex)
                     {
                         UI.Mensaje("Sistema de Cobranzas", "No se pudo cerrar la sesión", "", Page);
@@ -130,11 +158,36 @@ namespace Cobranzas
                             return;
                         }
 
+                        //DataTable dt = new DataTable();
+                        //IPHostEntry host;
+                        //string localIP = "";
+                        //host = Dns.GetHostEntry(Dns.GetHostName());
+                        //foreach (IPAddress ip in host.AddressList)
+                        //{
+                        //    if (ip.AddressFamily.ToString() == "InterNetwork")
+                        //    {
+                        //        localIP = ip.ToString();
+                        //    }
+                        //}
+
+                        //dt = Negocios.EstadoSesion(Op.idOperador, localIP);
+
+                        //if (int.Parse((dt.Rows[0]).ItemArray[0].ToString()) == 0)
+                        //{
+                        //    UI.Mensaje("Sistema de Cobranzas", "Ya hay una sesion activa con este usuario", "", Page);
+                        //    return;
+                        //}
+
+
+
+
+
                         Sesion.Llenar(Op);
-                        if (!Sesion.Impersonando)
-                        {
-                            Sesion.Actividad("LI");
-                        }
+                        
+                            //if (!Sesion.Impersonando)
+                            //{
+                            //    Sesion.Actividad("LI");
+                            //}
                     }
                     Response.Redirect("Gestion.aspx", true);
                 }
@@ -142,7 +195,7 @@ namespace Cobranzas
                 {
                     //Response.Write(Ex.Message);
                     //Ex.Registrar();
-                    UI.Mensaje("Sistema de Cobranzas", "No se pudo iniciar sesión, usuario incorrecto o inexistente", "", Page);
+                    UI.Mensaje("Sistema de Cobranzas", "No se pudo iniciar sesión, usuario incorrecto o inexistente" + Ex.InnerException, "", Page);
                 }
             }
             else
