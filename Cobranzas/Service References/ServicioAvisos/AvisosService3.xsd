@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Cobranzas.OT" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Cobranzas.OT" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfotAviso">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="otAviso" nillable="true" type="tns:otAviso" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfotAviso" nillable="true" type="tns:ArrayOfotAviso" />
+  <xs:complexType name="otAviso">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Aviso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPersona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Comentario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaAviso" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaCancelado" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaCrea" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaOriginal" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="NombrePersona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Operador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OperadorCrea" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Prioritario" type="xs:boolean" />
+      <xs:element minOccurs="0" name="idAviso" type="xs:int" />
+      <xs:element minOccurs="0" name="idOperador" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="idOperadorCrea" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="idPersona" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="otAviso" nillable="true" type="tns:otAviso" />
+</xs:schema>

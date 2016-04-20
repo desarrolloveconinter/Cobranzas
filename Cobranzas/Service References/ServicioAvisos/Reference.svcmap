@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="cece26d7-59d3-4cba-a57e-e10e0fe9c4d5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://veccsvs008:9010/Servicios/AvisosService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="AvisosService.xsd" MetadataType="Schema" ID="9d9d4c06-0562-4b9b-aec0-43f83431698f" SourceId="1" SourceUrl="http://veccsvs008:9010/Servicios/AvisosService.svc?xsd=xsd3" />
+    <MetadataFile FileName="AvisosService1.xsd" MetadataType="Schema" ID="c8bf887b-c1b0-4ba4-8142-5358255a6667" SourceId="1" SourceUrl="http://veccsvs008:9010/Servicios/AvisosService.svc?xsd=xsd0" />
+    <MetadataFile FileName="AvisosService.wsdl" MetadataType="Wsdl" ID="479904d3-58d1-4273-ae48-e51a8e132574" SourceId="1" SourceUrl="http://veccsvs008:9010/Servicios/AvisosService.svc?wsdl" />
+    <MetadataFile FileName="AvisosService.disco" MetadataType="Disco" ID="7d0d72c1-d394-46ea-849a-e18ea96cdce6" SourceId="1" SourceUrl="http://veccsvs008:9010/Servicios/AvisosService.svc?disco" />
+    <MetadataFile FileName="AvisosService2.xsd" MetadataType="Schema" ID="dd2564ab-cf1f-4cac-a74b-7a5072102b64" SourceId="1" SourceUrl="http://veccsvs008:9010/Servicios/AvisosService.svc?xsd=xsd1" />
+    <MetadataFile FileName="AvisosService3.xsd" MetadataType="Schema" ID="a26dd8bf-c155-4667-b2be-3b0786eeab48" SourceId="1" SourceUrl="http://veccsvs008:9010/Servicios/AvisosService.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

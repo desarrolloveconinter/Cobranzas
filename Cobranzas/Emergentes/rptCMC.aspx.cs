@@ -113,7 +113,7 @@ namespace Cobranzas.Emergentes
 
                     SqlParametros2[8] = new SqlParameter("@UsuSesion", SqlDbType.VarChar);
                     SqlParametros2[8].Value = Sesion.Operador.Login.ToString();
-
+    
                     dal.EjecutarAccion("AgregarReporteCMCTemporal", SqlParametros2);
                 }
 

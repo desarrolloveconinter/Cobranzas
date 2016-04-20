@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://veccsvs008:9010/Servicios/AvisosService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Cobranzas.OT" />
+  <xs:import schemaLocation="http://veccsvs008:9010/Servicios/AvisosService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="Avisos_Creados_lst">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idOperador" type="xs:int" />
+        <xs:element minOccurs="0" name="FechaDesde" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="FechaHasta" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Avisos_Creados_lstResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Cobranzas.OT" minOccurs="0" name="Avisos_Creados_lstResult" nillable="true" type="q1:ArrayOfotAviso" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Avisos_lst">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idAviso" type="xs:int" />
+        <xs:element minOccurs="0" name="idOperador" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Avisos_lstResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Cobranzas.OT" minOccurs="0" name="Avisos_lstResult" nillable="true" type="q2:ArrayOfotAviso" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Avisos_ins">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Cobranzas.OT" minOccurs="0" name="Aviso" nillable="true" type="q3:otAviso" />
+        <xs:element minOccurs="0" name="idOperador" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Avisos_insResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Avisos_insResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Avisos_del">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Avisos" nillable="true" type="q4:ArrayOfint" />
+        <xs:element minOccurs="0" name="Comentario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Avisos_delResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Avisos_delResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

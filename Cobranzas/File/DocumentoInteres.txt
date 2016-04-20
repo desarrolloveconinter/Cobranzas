@@ -1,0 +1,65 @@
+DataTable dt = new System.Data.DataTable();
+
+
+                    Table tablaDocumentos = new Table();
+
+                    TableRow trTitulos = new TableRow();
+                    TableRow tdDocumentos = new TableRow();
+
+                    TableHeaderCell tdTitulo = new TableHeaderCell();
+
+                    TableHeaderCell tdTituloNombre = new TableHeaderCell();
+                    TableHeaderCell tdFecha = new TableHeaderCell();
+
+
+                    tablaDocumentos.BorderWidth = 1;
+                    tablaDocumentos.BorderColor = System.Drawing.Color.Black;
+                    tablaDocumentos.Width = new Unit("100%");
+
+
+
+                    tdTituloNombre.Text = "Nombre Documento";
+                    tdFecha.Text = "Fecha";
+                    tdTitulo.ColumnSpan = 4;
+                    tdTitulo.HorizontalAlign = HorizontalAlign.Center;
+
+                    dt = Negocios.VerDocumentos();
+
+                    tdTitulo.Text = "Documento de Interes";
+
+                    trTitulos.Controls.Add(tdTitulo);
+                    tdDocumentos.Controls.Add(tdTituloNombre);
+                    tdDocumentos.Controls.Add(tdFecha);
+                    tablaDocumentos.Controls.Add(trTitulos);
+                    tablaDocumentos.Controls.Add(tdDocumentos);
+
+
+
+
+
+                    for (int j = 0; j < dt.Rows.Count; j++)
+                    {
+
+
+
+
+                        TableRow trContenido = new TableRow();
+                        TableCell tdContenidoNombre = new TableCell();
+                        TableCell tdContenidoDocumento = new TableCell();
+                        TableCell tdContenidoFecha = new TableCell();
+
+                        tdContenidoNombre.Text = dt.Rows[j]["Nombre"].ToString();
+                        tdContenidoDocumento.Text = dt.Rows[j]["Documento"].ToString();
+                        tdContenidoFecha.Text = dt.Rows[j]["Documento"].ToString();
+
+
+                        trContenido.Controls.Add(tdContenidoNombre);
+                        trContenido.Controls.Add(tdContenidoDocumento);
+                        trContenido.Controls.Add(tdContenidoFecha);
+
+
+                        tablaDocumentos.Controls.Add(trContenido);
+
+
+                    }
+                    pnlContenedor.Controls.Add(tablaDocumentos);
